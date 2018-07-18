@@ -28,13 +28,9 @@ class AdminController extends Controller
         $categories = $questions = $result =[];
         $categories = Category::all()->toArray();
 
-        $questions = Question::where('category_id', '=', $selectedCategory)
+        $result = Question::where('category_id', '=', $selectedCategory)
             ->with('answer', 'category')
             ->get();
-
-        foreach ($questions as $question) {
-            $result[] = $question;
-        }
 
         return view('admin/index', compact('categories', 'result', 'selectedCategory'));
 
