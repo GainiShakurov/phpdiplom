@@ -1,0 +1,37 @@
+{% extends('layout.html') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <div class="login-box-body">
+                    <p class="login-box-msg">Авторизируйтесь для начала сессии</p>
+                    <form action="{{ route('login') }}" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Имя" name="inputName"/>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" class="form-control" placeholder="Пароль" name="inputPassword"/>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-4">
+                                <button type="submit" class="btn btn-primary btn-flat">Войти</button>
+                            </div><!-- /.col -->
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+    <script>
+
+
+    </script>
+{% endblock init_scripts %}

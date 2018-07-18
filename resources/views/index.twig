@@ -1,0 +1,42 @@
+{% extends('layout.html') %}
+
+{% block content %}
+
+    <section class="cd-faq">
+        <ul class="cd-faq-categories">
+            {% for category in categories %}
+                <li><a class="{% if loop.first %} selected {% endif %} "
+                       href="#{{ category.name | lower }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul> <!-- cd-faq-categories -->
+
+        <div class="cd-faq-items">
+            <a href="{{ route('add') }}" style="background: #555b61; color: #ffffff; padding: 10px 15px;">Добавить</a>
+            {% for category, question in result %}
+
+                <ul id="{{ category | lower }}" class="cd-faq-group">
+                    <li class="cd-faq-title"><h2>{{ category }}</h2></li>
+
+                    {% for item in question %}
+                        <li>
+                            <a class="cd-faq-trigger" href="#0">{{ item.question }}</a>
+                            <div class="cd-faq-content">
+                                <p>{{ item.answer.answer }}</p>
+                            </div> <!-- cd-faq-content -->
+                        </li>
+                    {% endfor %}
+
+                </ul> <!-- cd-faq-group -->
+            {% endfor %}
+        </div> <!-- cd-faq-items -->
+        <a href="#0" class="cd-close-panel">Close</a>
+    </section> <!-- cd-faq -->
+
+{% endblock content %}
+
+{% block init_scripts %}
+    <script>
+
+
+    </script>
+{% endblock init_scripts %}

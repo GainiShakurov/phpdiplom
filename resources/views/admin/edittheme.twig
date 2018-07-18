@@ -1,0 +1,53 @@
+{% extends('layout.admin') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <p class="display-4">Просмотр тем</p>
+        <div class="row">
+            <div class="col-md-12">
+                    <table class="table table-hover table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th>
+                                №
+                            </th>
+                            <th>
+                                Название
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                    {% for item in categories %}
+                        <tr>
+                            <td>
+                                {{ loop.index0 + 1 }}
+                            </td>
+                            <td>
+                                {{ item.name }}
+                            </td>
+                            <td>
+                                <a href="{{ route('deleteTheme') ~ '/' ~ item.id }}">Удалить</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="form-group">
+                        <a href="{{ route('addTheme') }}" class="btn btn-primary">Добавить</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+    <script>
+
+
+    </script>
+{% endblock init_scripts %}

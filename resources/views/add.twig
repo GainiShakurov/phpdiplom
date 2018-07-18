@@ -1,0 +1,55 @@
+{% extends('layout.html') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-4">
+
+                <p class="display-4">Добавление нового вопроса</p>
+
+            <form action="{{ route('add') }}" method="post" accept-charset="utf-8">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="inputName">Имя</label>
+                    <input type="text" class="form-control" id="inputName" name="inputName"
+                           placeholder="Введите имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail">E-mail адрес</label>
+                    <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Введите email" pattern="[^@\s]+@[^@\s]+" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputCategory">Выберите категорию</label>
+                    <select name="inputCategory" id="inputCategory" class="form-control">
+
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if loop.first %} selected {% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="textQuestion">Текст вопроса</label>
+                    <textarea class="form-control" rows="5" id="textQuestion" name="textQuestion"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+    <script>
+
+
+    </script>
+{% endblock init_scripts %}

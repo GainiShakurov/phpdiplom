@@ -1,0 +1,51 @@
+{% extends('layout.admin') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <p class="display-4">Список администраторов</p>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered table-condensed">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>№</th>
+                        <th>Имя пользователя</th>
+                        <th>E-mail</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for admin in admins %}
+                        <tr>
+                            <td>
+                                {{ loop.index0 + 1 }}
+                            </td>
+                            <td>
+                                {{ admin.name }}
+                            </td>
+                            <td>
+                                {{ admin.email }}
+                            </td>
+                            <td>
+                                <a href="{{ route('changeAdmin') ~ '/' ~ admin.id }}">Изменить пароль</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('deleteAdmin') ~ '/' ~ admin.id }}">Удалить</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="form-group">
+                    <a href="{{ route('addAdmin') }}" class="btn btn-primary">Добавить</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+{% endblock init_scripts %}
