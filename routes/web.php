@@ -48,4 +48,7 @@ Route::post('/admin/addtheme', ['middleware' => 'auth', 'uses' => 'AdminControll
 Route::get('/admin/deletetheme/{id?}', ['as' => 'deleteTheme', 'middleware' => 'auth', 'uses' => 'AdminController@getDeletetheme']);
 Route::post('/admin/deletetheme/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postDeletetheme']);
 
+Route::get('/admin/changetheme/{id?}', ['as' => 'changeTheme','middleware' => 'auth', 'uses' => 'AdminController@getChangetheme']);
+Route::post('/admin/changetheme/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postChangetheme']);
+
 Route::get('/admin/logout', ['as' => 'logout','middleware' => 'auth', 'uses' => 'AuthController@getLogout']);

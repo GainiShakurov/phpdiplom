@@ -32,6 +32,7 @@
                             <th>Автор</th>
                             <th>Опубликован</th>
                             <th></th>
+                            <th>Перенос вопроса в другую категорию</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -58,6 +59,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('edit') ~ '/' ~ item.id }}">Редактировать</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('changeTheme') ~ '/' ~ item.id }}">Перенести</a>
                                 </td>
                             </tr>
                         {% endfor %}

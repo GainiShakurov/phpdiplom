@@ -175,4 +175,25 @@ class AdminController extends Controller
         return redirect('/admin/adminlist');
     }
 
+    public function getChangetheme($id = 0)
+    {
+        $categories = $questions = $result =[];
+        $categories = Category::all()->toArray();
+
+        $question = Question::where('id', '=', (int)$id)
+            ->with('answer', 'category')
+            ->get()->toArray()[0];
+
+        return view('admin/changetheme', compact('categories', 'question'));
+    }
+
+    public function postChangetheme($id = 0, Request $request)
+    {
+        $category_id = $request->input('inputCategory');
+
+        $question = Question::find((int)$id);
+        $question->category_id = $category_id;
+        $question->save();
+    }
+
 }
