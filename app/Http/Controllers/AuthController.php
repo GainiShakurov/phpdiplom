@@ -22,6 +22,8 @@ class AuthController extends Controller {
         {
             return redirect()->intended('admin/index');
         }
+
+        return redirect('admin')->with('error', 'Не правильно введены имя пользователя/пароль');
     }
 
     public function getLogout()

@@ -28,10 +28,10 @@
                                 {{ admin.email }}
                             </td>
                             <td>
-                                <a href="{{ route('changeAdmin') ~ '/' ~ admin.id }}">Изменить пароль</a>
+                                <a href="{{ route('changeUser') ~ '/' ~ admin.id }}">Изменить пароль</a>
                             </td>
                             <td>
-                                <a href="{{ route('deleteAdmin') ~ '/' ~ admin.id }}">Удалить</a>
+                                <a href="{{ route('deleteUser') ~ '/' ~ admin.id }}">Удалить</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -39,7 +39,7 @@
                 </table>
 
                 <div class="form-group">
-                    <a href="{{ route('addAdmin') }}" class="btn btn-primary">Добавить</a>
+                    <a href="{{ route('addUser') }}" class="btn btn-primary">Добавить</a>
                 </div>
 
             </div>

@@ -5,22 +5,22 @@
         <p class="display-4">Перенос вопроса в другую тему</p>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ url('/admin/changetheme') ~ '/' ~ question.id }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('/admin/theme/change') ~ '/' ~ question.id }}" method="post"
+                      accept-charset="utf-8">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
                         <label for="inputQuestion">Текст вопроса</label>
-                        <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" value="{{ question.question }}" disabled>
+                        <input type="text" class="form-control" id="inputQuestion" name="inputQuestion"
+                               value="{{ question.question }}" disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="inputCategory">Выберите категорию</label>
                         <select name="inputCategory" id="inputCategory" class="form-control">
-
                             {% for category in categories %}
                                 <option value="{{ category.id }}" {% if category.id == selectedCategory %} selected {% endif %}>{{ category.name }}</option>
                             {% endfor %}
-
                         </select>
                     </div>
 
@@ -35,8 +35,4 @@
 {% endblock content %}
 
 {% block init_scripts %}
-    <script>
-
-
-    </script>
 {% endblock init_scripts %}

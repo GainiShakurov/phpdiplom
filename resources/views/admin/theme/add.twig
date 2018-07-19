@@ -2,19 +2,19 @@
 
 {% block content %}
     <div class="container-fluid">
-        <p class="display-4">Удаление темы</p>
+        <p class="display-4">Добавление темы</p>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ url('/admin/deletetheme') ~ '/' ~ category.id }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('/admin/theme/add') }}" method="post" accept-charset="utf-8">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
                         <label for="inputName">Название темы</label>
-                        <input type="text" class="form-control" id="inputName" name="inputName" value="{{ category.name }}" disabled>
+                        <input type="text" class="form-control" id="inputName" name="inputName" value="">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Удалить</button>
+                        <button type="submit" class="btn btn-primary">Добавить</button>
                     </div>
 
                 </form>
@@ -24,8 +24,4 @@
 {% endblock content %}
 
 {% block init_scripts %}
-    <script>
-
-
-    </script>
 {% endblock init_scripts %}

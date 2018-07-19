@@ -11,9 +11,38 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/admin/logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
+
+    Route::get('/admin/index', ['as' => 'adminMain', 'uses' => 'AdminController@getIndex']);
+    Route::post('/admin/index', ['as' => 'adminMain', 'uses' => 'AdminController@postIndex']);
+
+    Route::get('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@getEdit']);
+    Route::post('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@postEdit']);
+
+    Route::get('/admin/theme/add', ['as' => 'addTheme', 'uses' => 'ThemeController@getAdd']);
+    Route::post('/admin/theme/add', ['uses' => 'ThemeController@postAdd']);
+
+    Route::get('/admin/theme/delete/{id?}', ['as' => 'deleteTheme', 'uses' => 'ThemeController@getDelete']);
+    Route::post('/admin/theme/delete/{id?}', ['uses' => 'ThemeController@postDelete']);
+
+    Route::get('/admin/theme/change/{id?}', ['as' => 'changeTheme', 'uses' => 'ThemeController@getChange']);
+    Route::post('/admin/theme/change/{id?}', ['uses' => 'ThemeController@postChange']);
+
+    Route::get('/admin/theme/index', ['as' => 'themeList', 'uses' => 'ThemeController@getIndex']);
+
+    Route::get('/admin/users/index', ['as' => 'userList', 'uses' => 'UserController@getIndex']);
+
+    Route::get('/admin/users/add', ['as' => 'addUser', 'uses' => 'UserController@getAdd']);
+    Route::post('/admin/users/add', ['uses' => 'UserController@postAdd']);
+
+    Route::get('/admin/users/delete/{id?}', ['as' => 'deleteUser', 'uses' => 'UserController@getDelete']);
+    Route::post('/admin/users/delete/{id?}', ['uses' => 'UserController@postDelete']);
+
+    Route::get('/admin/users/change/{id?}', ['as' => 'changeUser', 'uses' => 'UserController@getChange']);
+    Route::post('/admin/users/change/{id?}', ['uses' => 'UserController@postChange']);
+
+});
 
 
 Route::get('/admin', ['as' => 'admin', 'uses' => 'AuthController@getLogin']);
@@ -23,32 +52,13 @@ Route::get('/', 'FaqController@getIndex');
 Route::get('/add', ['as' => 'add', 'uses' => 'FaqController@getAdd']);
 Route::post('/add', ['as' => 'save',  'uses' => 'FaqController@postAdd']);
 
-Route::get('/admin/index', ['as' => 'adminMain','middleware' => 'auth', 'uses' => 'AdminController@getIndex']);
-Route::post('/admin/index', ['as' => 'adminMain','middleware' => 'auth', 'uses' => 'AdminController@postIndex']);
 
-Route::get('/admin/edit/{id?}', ['as' => 'edit','middleware' => 'auth', 'uses' => 'AdminController@getEdit']);
-Route::post('/admin/edit/{id?}', ['as' => 'edit','middleware' => 'auth', 'uses' => 'AdminController@postEdit']);
 
-Route::get('/admin/edittheme', ['as' => 'editTheme','middleware' => 'auth', 'uses' => 'AdminController@getEdittheme']);
 
-Route::get('/admin/adminlist', ['as' => 'adminList','middleware' => 'auth', 'uses' => 'AdminController@getAdminlist']);
 
-Route::get('/admin/deleteadmin/{id?}', ['as' => 'deleteAdmin', 'middleware' => 'auth', 'uses' => 'AdminController@getDeleteadmin']);
-Route::post('/admin/deleteadmin/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postDeleteadmin']);
 
-Route::get('/admin/changepswd/{id?}', ['as' => 'changeAdmin', 'middleware' => 'auth', 'uses' => 'AdminController@getChangepassword']);
-Route::post('/admin/changepswd/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postChangepassword']);
 
-Route::get('/admin/addadmin', ['as' => 'addAdmin','middleware' => 'auth', 'uses' => 'AdminController@getAddadmin']);
-Route::post('/admin/addadmin', ['middleware' => 'auth', 'uses' => 'AdminController@postAddadmin']);
 
-Route::get('/admin/addtheme', ['as' => 'addTheme','middleware' => 'auth', 'uses' => 'AdminController@getAddtheme']);
-Route::post('/admin/addtheme', ['middleware' => 'auth', 'uses' => 'AdminController@postAddtheme']);
 
-Route::get('/admin/deletetheme/{id?}', ['as' => 'deleteTheme', 'middleware' => 'auth', 'uses' => 'AdminController@getDeletetheme']);
-Route::post('/admin/deletetheme/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postDeletetheme']);
 
-Route::get('/admin/changetheme/{id?}', ['as' => 'changeTheme','middleware' => 'auth', 'uses' => 'AdminController@getChangetheme']);
-Route::post('/admin/changetheme/{id?}', ['middleware' => 'auth', 'uses' => 'AdminController@postChangetheme']);
 
-Route::get('/admin/logout', ['as' => 'logout','middleware' => 'auth', 'uses' => 'AuthController@getLogout']);

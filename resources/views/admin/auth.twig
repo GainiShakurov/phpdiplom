@@ -6,6 +6,8 @@
             <div class="col-md-4">
                 <div class="login-box-body">
                     <p class="login-box-msg">Авторизируйтесь для начала сессии</p>
+                    {% if session_has('error') %}<div class="alert alert-danger">{{ session_get('error') }}</div>{% endif %}
+                    {% if session_has('notice') %}<div class="alert alert-success">{{ session_get('notice') }}</div>{% endif %}
                     <form action="{{ route('login') }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group has-feedback">
@@ -30,8 +32,4 @@
 {% endblock content %}
 
 {% block init_scripts %}
-    <script>
-
-
-    </script>
 {% endblock init_scripts %}
