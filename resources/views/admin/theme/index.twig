@@ -15,17 +15,35 @@
                                 Название
                             </th>
                             <th>
+                                Количество вопросов
+                            </th>
+                            <th>
+                                Количество опубликованных вопросов
+                            </th>
+                            <th>
+                                Количество вопросов без ответа
+                            </th>
+                            <th>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                    {% for item in categories %}
+                    {% for item in result %}
                         <tr>
                             <td>
                                 {{ loop.index0 + 1 }}
                             </td>
                             <td>
                                 {{ item.name }}
+                            </td>
+                            <td>
+                                {{ item.QNum }}
+                            </td>
+                            <td>
+                                {{ item.QPubNum }}
+                            </td>
+                            <td>
+                                {{ item.QNum - item.ANum }}
                             </td>
                             <td>
                                 <a href="{{ route('deleteTheme') ~ '/' ~ item.id }}">Удалить</a>

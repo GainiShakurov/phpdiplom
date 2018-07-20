@@ -5,15 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Question;
+use Illuminate\Support\Facades\DB;
 
 class ThemeController extends Controller
 {
     public function getIndex()
     {
-        $categories = [];
-        $categories = Category::all()->toArray();
 
-        return view('/admin/theme/index', compact('categories'));
+        $result = DB::select(
+                    DB::raw(
+                        "SELECT c.*,  
+                            (SELECT COUNT(*) FROM questions WHERE questions.category_id = c.id) QNum, 
+                            (SELECT COUNT(*) FROM questions WHERE questions.category_id = c.id AND questions.published = 1 ) QPubNum, 
+                            (SELECT COUNT(*) FROM answers 
+                            INNER JOIN questions ON answers.question_id = questions.id
+                            WHERE questions.category_id = c.id
+                            GROUP BY questions.category_id
+                            ORDER BY category_id) ANum
+                          FROM categories c"));
+
+        return view('/admin/theme/index', compact('result'));
     }
 
     public function getAdd()
@@ -51,7 +62,7 @@ class ThemeController extends Controller
 
     public function getChange($id = 0)
     {
-        $categories = $questions = $result =[];
+        $categories = $questions = $result = [];
         $categories = Category::all()->toArray();
 
         $question = Question::where('id', '=', (int)$id)
