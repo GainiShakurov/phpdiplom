@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@getEdit']);
     Route::post('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@postEdit']);
 
+    Route::get('/admin/answer/{id?}', ['as' => 'answer', 'uses' => 'AdminController@getAnswer']);
+    Route::post('/admin/answer/{id?}', ['as' => 'answer', 'uses' => 'AdminController@postAnswer']);
+
     Route::get('/admin/delete/{id?}', ['as' => 'deleteQuestion', 'uses' => 'AdminController@getDelete']);
     Route::post('/admin/delete/{id?}', ['as' => 'deleteQuestion', 'uses' => 'AdminController@postDelete']);
 

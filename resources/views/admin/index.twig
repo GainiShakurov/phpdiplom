@@ -31,6 +31,9 @@
                             <th>Ответ</th>
                             <th>Автор</th>
                             <th>Опубликован</th>
+                            <th>Ждет ответа</th>
+                            <th>Дата создания</th>
+                            <th>Ответить</th>
                             <th>Редактирование</th>
                             <th>Перенос вопроса в другую категорию</th>
                             <th>Удаление</th>
@@ -57,6 +60,19 @@
                                     {% else %}
                                         Нет
                                     {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if item.published == 1 %}
+                                        Да
+                                    {% else %}
+                                        Нет
+                                    {% endif %}
+                                </td>
+                                <td width="180">
+                                    {{ item.created_at }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('answer') ~ '/' ~ item.id }}">Ответить</a>
                                 </td>
                                 <td>
                                     <a href="{{ route('edit') ~ '/' ~ item.id }}">Редактировать</a>

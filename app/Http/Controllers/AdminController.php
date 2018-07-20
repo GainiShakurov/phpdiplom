@@ -78,4 +78,32 @@ class AdminController extends Controller
         return redirect('/admin/index');
     }
 
+    public function getAnswer($id = 0)
+    {
+        $question = Question::where('id', '=', (int)$id)
+            ->with('answer', 'category')
+            ->get()->toArray()[0];
+
+        return view('admin/answer', compact('question'));
+    }
+
+    public function postAnswer($id = 0, Request $request)
+    {
+        $answerInput = $request->input('inputAnswer');
+        $authorInput = $request->input('inputAuthor');
+        $publishInput = $request->input('inputPublished');
+
+        $question = Question::find((int)$id);
+        $question->published = ($publishInput == 1)? 1: 0;
+        $question->author = $authorInput;
+        $question->save();
+
+        $answer = Answer::where('question_id', '=', (int)$id)->first();
+        $answer->answer = $answerInput;
+
+        $answer->save();
+
+        return redirect('/admin/index');
+    }
+
 }
