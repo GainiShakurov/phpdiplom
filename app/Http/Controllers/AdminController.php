@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
-use App\Models\Users;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -60,6 +57,23 @@ class AdminController extends Controller
         $answer->answer = $answerInput;
 
         $answer->save();
+
+        return redirect('/admin/index');
+    }
+
+    public function getDelete($id = 0)
+    {
+        $question = Question::where('id', '=', (int)$id)
+            ->with('answer', 'category')
+            ->get()->toArray()[0];
+
+        return view('admin/delete', compact('question'));
+    }
+
+    public function postDelete($id = 0)
+    {
+        $questions = Question::where('id', '=', $id)->with('answer');
+        $questions->delete();
 
         return redirect('/admin/index');
     }

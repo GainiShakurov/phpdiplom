@@ -31,8 +31,9 @@
                             <th>Ответ</th>
                             <th>Автор</th>
                             <th>Опубликован</th>
-                            <th></th>
+                            <th>Редактирование</th>
                             <th>Перенос вопроса в другую категорию</th>
+                            <th>Удаление</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,6 +63,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('changeTheme') ~ '/' ~ item.id }}">Перенести</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('deleteQuestion') ~ '/' ~ item.id }}">Удалить</a>
                                 </td>
                             </tr>
                         {% endfor %}
