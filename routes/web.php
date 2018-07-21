@@ -15,7 +15,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/logout', ['as' => 'logout', 'uses' => 'AuthController@getLogout']);
 
     Route::get('/admin/index', ['as' => 'adminMain', 'uses' => 'AdminController@getIndex']);
-    Route::post('/admin/index', ['as' => 'adminMain', 'uses' => 'AdminController@postIndex']);
 
     Route::get('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@getEdit']);
     Route::post('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@postEdit']);
@@ -26,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/delete/{id?}', ['as' => 'deleteQuestion', 'uses' => 'AdminController@getDelete']);
     Route::post('/admin/delete/{id?}', ['as' => 'deleteQuestion', 'uses' => 'AdminController@postDelete']);
 
+    Route::get('/admin/status/{id?}/{status?}', ['as' => 'status', 'uses' => 'AdminController@getStatus']);
 
     Route::get('/admin/theme/add', ['as' => 'addTheme', 'uses' => 'ThemeController@getAdd']);
     Route::post('/admin/theme/add', ['uses' => 'ThemeController@postAdd']);

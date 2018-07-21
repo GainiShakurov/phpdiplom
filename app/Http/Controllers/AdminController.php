@@ -6,31 +6,25 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function getIndex()
+    public function getIndex(Request $request)
     {
-        $categories = $questions = $result =[];
         $categories = Category::all()->toArray();
+        $selectedCategory = $request->input('category');
 
-        return view('admin/index', compact('categories'));
-    }
-
-    public function postIndex(Request $request)
-    {
-
-        $selectedCategory = $request->input('inputCategory');
-
-        $categories = $questions = $result =[];
-        $categories = Category::all()->toArray();
+        if ($selectedCategory == null) {
+            $selectedCategory = Category::first()->id;
+        }
 
         $result = Question::where('category_id', '=', $selectedCategory)
             ->with('answer', 'category')
             ->get();
 
         return view('admin/index', compact('categories', 'result', 'selectedCategory'));
-
     }
 
     public function getEdit($id = 0)
@@ -49,6 +43,7 @@ class AdminController extends Controller
         $authorInput = $request->input('inputAuthor');
 
         $question = Question::find((int)$id);
+        $selectedCategory = $question->category_id;
         $question->question = $questionInput;
         $question->author = $authorInput;
         $question->save();
@@ -58,7 +53,7 @@ class AdminController extends Controller
 
         $answer->save();
 
-        return redirect('/admin/index');
+        return redirect('/admin/index?category='.$selectedCategory);
     }
 
     public function getDelete($id = 0)
@@ -72,10 +67,14 @@ class AdminController extends Controller
 
     public function postDelete($id = 0)
     {
-        $questions = Question::where('id', '=', $id)->with('answer');
+        $questions = Question::where('id', '=', $id);
+        $selectedCategory = $questions->first()->category_id;
         $questions->delete();
 
-        return redirect('/admin/index');
+        $answer = Answer::where('question_id', '=', (int)$id)->first();
+        $answer->delete();
+
+        return redirect('/admin/index?category='.$selectedCategory);
     }
 
     public function getAnswer($id = 0)
@@ -91,19 +90,36 @@ class AdminController extends Controller
     {
         $answerInput = $request->input('inputAnswer');
         $authorInput = $request->input('inputAuthor');
-        $publishInput = $request->input('inputPublished');
+        $publishInput = $request->input('inputPublished', 0);
 
         $question = Question::find((int)$id);
+        $selectedCategory = $question->category_id;
         $question->published = ($publishInput == 1)? 1: 0;
         $question->author = $authorInput;
         $question->save();
 
-        $answer = Answer::where('question_id', '=', (int)$id)->first();
-        $answer->answer = $answerInput;
+        $now = Carbon::now()->toDateTimeString();
 
+        $answer = new Answer();
+        $answer->answer = $answerInput;
+        $answer->question_id = $id;
+        $answer->admin_id = Auth::user()->id;
+        $answer->created_at = $now;
+        $answer->updated_at = $now;
         $answer->save();
 
-        return redirect('/admin/index');
+        return redirect('/admin/index?category='.$selectedCategory);
+    }
+
+    public function getStatus($id = 0, $status)
+    {
+
+        $question = Question::find((int)$id);
+        $selectedCategory = $question->category_id;
+        $question->published = $status;
+        $question->save();
+
+        return redirect('/admin/index?category='.$selectedCategory);
     }
 
 }

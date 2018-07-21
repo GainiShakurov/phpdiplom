@@ -5,17 +5,14 @@
         <p class="display-4">Просмотр вопросов</p>
         <div class="row">
             <div class="col-md-12">
-                <form action="" method="post" accept-charset="utf-8">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <form action="" method="get" accept-charset="utf-8">
 
                     <div class="form-group">
-                        <label for="inputCategory">Выберите категорию</label>
-                        <select name="inputCategory" id="inputCategory" class="form-control">
-
+                        <label for="category">Выберите категорию</label>
+                        <select name="category" id="category" class="form-control">
                             {% for category in categories %}
                                 <option value="{{ category.id }}" {% if category.id == selectedCategory %} selected {% endif %}>{{ category.name }}</option>
                             {% endfor %}
-
                         </select>
                     </div>
 
@@ -30,9 +27,9 @@
                             <th>Вопрос</th>
                             <th>Ответ</th>
                             <th>Автор</th>
+                            <th>Дата создания вопроса</th>
                             <th>Опубликован</th>
                             <th>Ждет ответа</th>
-                            <th>Дата создания</th>
                             <th>Ответить</th>
                             <th>Редактирование</th>
                             <th>Перенос вопроса в другую категорию</th>
@@ -54,25 +51,32 @@
                                 <td>
                                     {{ item.author }}
                                 </td>
-                                <td class="text-center">
-                                    {% if item.published == 1 %}
-                                        Да
-                                    {% else %}
-                                        Нет
-                                    {% endif %}
-                                </td>
-                                <td class="text-center">
-                                    {% if item.published == 1 %}
-                                        Да
-                                    {% else %}
-                                        Нет
-                                    {% endif %}
-                                </td>
                                 <td width="180">
                                     {{ item.created_at }}
                                 </td>
-                                <td>
-                                    <a href="{{ route('answer') ~ '/' ~ item.id }}">Ответить</a>
+                                <td class="text-center">
+                                    {% if item.answer.answer is not empty %}
+                                        {% if item.published == 1 %}
+                                            Да (<a href="{{ route('status') ~ '/' ~ item.id ~ '/0' }}">Скрыть</a>)
+                                        {% else %}
+                                            Нет (<a
+                                                href="{{ route('status') ~ '/' ~ item.id ~ '/1' }}">Опубликовать</a>)
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if item.answer.answer is null or item.answer.answer|trim is empty %}
+                                        Да
+                                    {% else %}
+                                        Нет
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if item.answer.answer is null or item.answer.answer|trim is empty %}
+                                        <a href="{{ route('answer') ~ '/' ~ item.id }}">Ответить</a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
                                 </td>
                                 <td>
                                     <a href="{{ route('edit') ~ '/' ~ item.id }}">Редактировать</a>

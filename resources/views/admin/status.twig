@@ -1,0 +1,37 @@
+{% extends('layout.admin') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <p class="display-4">Смена статуса</p>
+        <div class="row">
+            <div class="col-md-12">
+
+                <form action="{{ url('/admin/status') ~ '/' ~ question.id ~ '/' ~ status}}" method="post" accept-charset="utf-8">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <div class="form-group">
+                        <label for="inputQuestion">Вопрос</label>
+                        <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" value="{{ question.question }}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="inputPublished" value="1" {% if status == 0 %} checked {% endif %}>
+                                Опубликован
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Изменить</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+{% endblock init_scripts %}
