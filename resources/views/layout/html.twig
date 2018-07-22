@@ -5,8 +5,8 @@
     <title>Сервис вопросов и ответов</title>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-    <link href="{{ url('css/reset.css?v=1.00') }}" rel="stylesheet">
-    <link href="{{ url('css/style.css?v=1.00') }}" rel="stylesheet">
+    <link href="{{ url('css/reset.css?v=1.00', Request::secure()) }}" rel="stylesheet">
+    <link href="{{ url('css/style.css?v=1.00', Request::secure()) }}" rel="stylesheet">
 
     <script src="{{ asset('js/modernizr.js') }}"></script>
 
