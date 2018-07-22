@@ -1,0 +1,62 @@
+{% extends('layout.admin') %}
+
+{% block content %}
+    <div class="container-fluid">
+        <p class="display-4">Просмотр вопросов, не имеющих ответа</p>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered table-condensed">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>№</th>
+                        <th>Вопрос</th>
+                        <th>Автор</th>
+                        <th>Дата создания вопроса</th>
+                        <th>Ответить</th>
+                        <th>Редактирование</th>
+                        <th>Перенос вопроса в другую категорию</th>
+                        <th>Удаление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in result %}
+                        <tr>
+                            <td>
+                                {{ loop.index0 + 1 }}
+                            </td>
+                            <td>
+                                {{ item.question }}
+                            </td>
+                            <td>
+                                {{ item.author }}
+                            </td>
+                            <td width="180">
+                                {{ item.created_at }}
+                            </td>
+                            <td class="text-center">
+                                {% if item.answer.answer is null or item.answer.answer|trim is empty %}
+                                    <a href="{{ route('answer') ~ '/' ~ item.id }}">Ответить</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ route('edit') ~ '/' ~ item.id }}">Редактировать</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('changeTheme') ~ '/' ~ item.id }}">Перенести</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('deleteQuestion') ~ '/' ~ item.id }}">Удалить</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block init_scripts %}
+{% endblock init_scripts %}

@@ -122,4 +122,19 @@ class AdminController extends Controller
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
+    public function getNoAnswered()
+    {
+
+        $result = Question::leftJoin('answers', function ($join){
+            $join->on('questions.id', '=', 'answers.question_id');
+        })
+            ->WhereNull('answers.question_id')
+            ->orderBy('questions.created_at')
+            ->with('answer', 'category')
+            ->get(['questions.*']);
+
+        return view('admin/noanswered', compact('result'));
+    }
+
+
 }

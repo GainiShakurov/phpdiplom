@@ -10,7 +10,7 @@ class Question extends Model
 {
     protected $table = 'questions';
 
-    protected $fillable = ['question', 'category_id', 'author', 'published'];
+    protected $fillable = ['question', 'category_id', 'author', 'published', 'created_at'];
 
     public function answer()
     {

@@ -16,6 +16,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/admin/index', ['as' => 'adminMain', 'uses' => 'AdminController@getIndex']);
 
+    Route::get('/admin/noanswered', ['as' => 'noAnswered', 'uses' => 'AdminController@getNoAnswered']);
+
     Route::get('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@getEdit']);
     Route::post('/admin/edit/{id?}', ['as' => 'edit', 'uses' => 'AdminController@postEdit']);
 
