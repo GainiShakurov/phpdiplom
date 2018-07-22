@@ -49,9 +49,20 @@ class AdminController extends Controller
         $question->save();
 
         $answer = Answer::where('question_id', '=', (int)$id)->first();
-        $answer->answer = $answerInput;
 
+        if ($answer === null) {
+            $now = Carbon::now()->toDateTimeString();
+            $answer = new Answer();
+            $answer->answer = $answerInput;
+            $answer->question_id = $id;
+            $answer->admin_id = Auth::user()->id;
+            $answer->created_at = $now;
+            $answer->updated_at = $now;
+        } else {
+            $answer->answer = $answerInput;
+        }
         $answer->save();
+
 
         return redirect('/admin/index?category='.$selectedCategory);
     }
