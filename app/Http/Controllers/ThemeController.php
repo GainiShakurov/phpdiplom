@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class ThemeController extends Controller
 {
+
+    /** Список тем
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex()
     {
 
@@ -27,11 +31,18 @@ class ThemeController extends Controller
         return view('/admin/theme/index', compact('result'));
     }
 
+    /** Страница добавления новых тем
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAdd()
     {
         return view('admin/theme/add');
     }
 
+    /** Сохранение новой темы
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postAdd(Request $request)
     {
         $name = $request->input('inputName');
@@ -43,6 +54,10 @@ class ThemeController extends Controller
         return redirect('/admin/theme/index');
     }
 
+    /** Страница удаления темы
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getDelete($id = 0)
     {
         $category = Category::find((int)$id)->toArray();
@@ -50,6 +65,10 @@ class ThemeController extends Controller
         return view('admin/theme/delete', compact('category'));
     }
 
+    /** Удаление темы
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postDelete($id = 0)
     {
         $category = Category::find((int)$id);
@@ -60,6 +79,10 @@ class ThemeController extends Controller
         return redirect('/admin/theme/index');
     }
 
+    /** Страница смены темы
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getChange($id = 0)
     {
         $categories = $questions = $result = [];
@@ -72,6 +95,11 @@ class ThemeController extends Controller
         return view('admin/theme/change', compact('categories', 'question'));
     }
 
+    /** Сохранение смены темы
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postChange($id = 0, Request $request)
     {
         $category_id = $request->input('inputCategory');

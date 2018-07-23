@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /** Список всех пользователей
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex()
     {
         $admins = [];
@@ -17,11 +20,18 @@ class UserController extends Controller
         return view('/admin/users/index', compact('admins'));
     }
 
+    /** Страница добавления администратора
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAdd()
     {
         return view('admin/users/add');
     }
 
+    /** Сохранение нового администратора
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postAdd(Request $request)
     {
         $name = $request->input('inputName');
@@ -42,6 +52,10 @@ class UserController extends Controller
         return redirect('/admin/users/index');
     }
 
+    /** Страница удаления администратора
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getDelete($id = 0)
     {
         $admin = Users::find((int)$id);
@@ -49,6 +63,10 @@ class UserController extends Controller
         return view('admin/users/delete', compact('admin'));
     }
 
+    /** Удаление администратора
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postDelete($id = 0)
     {
         $user = Users::find((int)$id);
@@ -57,6 +75,10 @@ class UserController extends Controller
         return redirect('/admin/users/index');
     }
 
+    /** Страница изменения пароля
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getChange($id = 0)
     {
         $admin = Users::find((int)$id);
@@ -64,6 +86,11 @@ class UserController extends Controller
         return view('admin/users/change', compact('admin'));
     }
 
+    /** Сохранение нового пароля
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postChange($id = 0, Request $request)
     {
         $password = $request->input('inputPassword');
