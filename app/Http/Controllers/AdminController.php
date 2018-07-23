@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
+    /** Отображение вопросов
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex(Request $request)
     {
         $categories = Category::all()->toArray();
@@ -27,6 +32,10 @@ class AdminController extends Controller
         return view('admin/index', compact('categories', 'result', 'selectedCategory'));
     }
 
+    /** Редактирование вопроса
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEdit($id = 0)
     {
         $question = Question::where('id', '=', (int)$id)
@@ -36,6 +45,11 @@ class AdminController extends Controller
         return view('admin/edit', compact('question'));
     }
 
+    /** Сохранение отредактированного вопроса
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postEdit($id = 0, Request $request)
     {
         $questionInput = $request->input('inputQuestion');
@@ -67,6 +81,10 @@ class AdminController extends Controller
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
+    /** Отображение вопроса для удаления
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getDelete($id = 0)
     {
         $question = Question::where('id', '=', (int)$id)
@@ -76,6 +94,10 @@ class AdminController extends Controller
         return view('admin/delete', compact('question'));
     }
 
+    /** Удаление выбранного вопроса
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postDelete($id = 0)
     {
         $questions = Question::where('id', '=', $id);
@@ -88,6 +110,10 @@ class AdminController extends Controller
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
+    /** Получение вопроса, требующего ответа
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAnswer($id = 0)
     {
         $question = Question::where('id', '=', (int)$id)
@@ -97,6 +123,11 @@ class AdminController extends Controller
         return view('admin/answer', compact('question'));
     }
 
+    /** Сохранение ответа
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postAnswer($id = 0, Request $request)
     {
         $answerInput = $request->input('inputAnswer');
@@ -122,6 +153,11 @@ class AdminController extends Controller
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
+    /** Смена статуса (опубликован/скрыт)
+     * @param int $id
+     * @param $status
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function getStatus($id = 0, $status)
     {
 
@@ -133,6 +169,9 @@ class AdminController extends Controller
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
+    /** Получение списка неотвеченных вопросов
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getNoAnswered()
     {
 

@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\Validator;
 class FaqController extends Controller
 {
 
+    /** Главная страница клиента.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getIndex()
     {
-        $questions = $categories = $result =[];
-
+        $result =[];
         $categories = Category::all()->toArray();
-
         $questions = Question::where('questions.published', '=', '1')
                     ->with('answer', 'category')
                     ->get();
@@ -28,6 +29,9 @@ class FaqController extends Controller
         return view('index', compact('result', 'categories'));
     }
 
+    /** Страница добавления нового вопроса у клиента
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAdd()
     {
         $categories = [];
@@ -36,6 +40,10 @@ class FaqController extends Controller
         return view('add', compact('categories'));
     }
 
+    /** Сохранить новый вопрос
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postAdd(Request $request)
     {
         $question = new Question();
