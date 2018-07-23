@@ -78,7 +78,7 @@ class AdminController extends Controller
         }
         $answer->save();
 
-        Log::info(Auth::user()->id.' обновил вопрос ('.$id.') из темы '.$question->category->name);
+        Log::info(Auth::user()->name.' обновил вопрос ('.$id.') из темы '.$question->category->name);
 
         return redirect('/admin/index?category='.$selectedCategory);
     }
@@ -108,6 +108,8 @@ class AdminController extends Controller
 
         $answer = Answer::where('question_id', '=', (int)$id)->first();
         $answer->delete();
+
+        Log::info(Auth::user()->name.' удалил вопрос ('.$id.') из темы '.$questions->category->name);
 
         return redirect('/admin/index?category='.$selectedCategory);
     }
