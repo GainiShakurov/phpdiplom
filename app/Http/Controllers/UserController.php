@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -49,6 +51,8 @@ class UserController extends Controller
         $admin->updated_at = $now;
         $admin->save();
 
+        Log::info(Auth::user()->name.' создал нового администратора - '.$name);
+
         return redirect('/admin/users/index');
     }
 
@@ -71,6 +75,8 @@ class UserController extends Controller
     {
         $user = Users::find((int)$id);
         $user->delete();
+
+        Log::info(Auth::user()->name.' удалил администратора - '.$user->name);
 
         return redirect('/admin/users/index');
     }
@@ -98,6 +104,7 @@ class UserController extends Controller
         $admin->password = Hash::make($password);
         $admin->save();
 
+        Log::info(Auth::user()->name.' изменил пароль администратора - '.$admin->name);
         return redirect('/admin/users/index');
     }
 }
