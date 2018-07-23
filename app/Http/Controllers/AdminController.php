@@ -154,6 +154,8 @@ class AdminController extends Controller
         $answer->updated_at = $now;
         $answer->save();
 
+        Log::info(Auth::user()->name.' ответил на вопрос ('.$id.') из темы '.$question->category->name);
+
         return redirect('/admin/index?category='.$selectedCategory);
     }
 
