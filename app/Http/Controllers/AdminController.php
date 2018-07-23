@@ -8,6 +8,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -77,6 +78,7 @@ class AdminController extends Controller
         }
         $answer->save();
 
+        Log::info(Auth::user()->id.' обновил вопрос ('.$id.') из темы '.$question->category->name);
 
         return redirect('/admin/index?category='.$selectedCategory);
     }
