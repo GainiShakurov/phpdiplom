@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ThemeController extends Controller
 {
@@ -51,6 +53,8 @@ class ThemeController extends Controller
         $category->name = $name;
         $category->save();
 
+        Log::info(Auth::user()->name.' добавил тему '.$category->name);
+
         return redirect('/admin/theme/index');
     }
 
@@ -75,6 +79,8 @@ class ThemeController extends Controller
         $questions = Question::where('category_id', '=', $id)->with('answer');
         $category->delete();
         $questions->delete();
+
+        Log::info(Auth::user()->name.' удалил тему '.$category->name);
 
         return redirect('/admin/theme/index');
     }
@@ -108,6 +114,7 @@ class ThemeController extends Controller
         $question->category_id = $category_id;
         $question->save();
 
+        Log::info(Auth::user()->name.' у вопроса ( '.$id.' ) сменил тему на '.$question->category->name);
         return redirect('/admin/theme/index');
 
     }
