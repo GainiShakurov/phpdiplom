@@ -186,8 +186,9 @@ class AdminController extends Controller
         })
             ->WhereNull('answers.question_id')
             ->orderBy('questions.created_at')
+            ->select('questions.*')
             ->with('answer', 'category')
-            ->get(['questions.*']);
+            ->get();
 
         return view('admin/noanswered', compact('result'));
     }
