@@ -49,8 +49,14 @@ https://docs.google.com/presentation/d/1yBNoObIqzcstW_2MK8b_F4MP7F7qazZcj1W7vN15
     - добавление нового вопроса клиентом
  
  **Конфиги** расположены в **/configs**
+ 
  **Логи** расположены в **/storage/logs/**
+ 
  **Маршруты** расположены в **/routes/web.php**
+ 
  **Миграции БД** расположены в **/database/migrations/**
+ 
  **Дамп базы данных** расположены в **/faq.sql**
+ 
  **Переменные окружения** расположены в **.env**
+ 
