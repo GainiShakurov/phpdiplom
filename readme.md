@@ -1,7 +1,7 @@
 ## FAQ by Shakurov G.A.
 
-http://phpdiplom/admin/ - административная часть
-http://phpdiplom - клиентская часть
+http://www.diplomfaq.info/admin/ - административная часть
+http://www.diplomfaq.info/ - клиентская часть
 
 Выполнить
 - выполнить настройку env-файла. Ввести имя базы данных, логин, пароль
