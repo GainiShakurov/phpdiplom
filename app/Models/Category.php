@@ -10,6 +10,9 @@ class Category extends Model
     public $timestamps = false;
     protected $fillable = ['name'];
 
+    /** связь с моделью вопросов. Каждая тема имеет множество вопросов
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function question()
     {
         return $this->hasMany('App\Models\Question');
